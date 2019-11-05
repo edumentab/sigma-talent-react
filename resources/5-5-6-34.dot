@@ -1,0 +1,16 @@
+digraph {
+    rankdir = LR
+    bgcolor = transparent
+
+    forceUpdate [color=red,fontcolor=red]
+    forceUpdate -> render [color=red]
+
+    getDerivedStateFromProps -> shouldComponentUpdate
+    shouldComponentUpdate -> render [label="if true",style="dashed"]
+    componentDidUpdate-> getSnapshotBeforeUpdate -> render [dir="back"]
+
+    {rank=same; shouldComponentUpdate, render}
+    {rank=same; componentDidUpdate,getDerivedStateFromProps}
+    {rank=same; forceUpdate, getSnapshotBeforeUpdate}
+
+}

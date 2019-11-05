@@ -1,0 +1,975 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Learning React  - Appendix - Graveyard</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="icon" type="image/x-icon" href="mc2/images/favicon.ico">
+
+    <link rel="stylesheet" href="mc2/styles/reveal.css">
+    <link rel="stylesheet" href="mc2/styles/theme.css" id="theme">
+    <link rel="stylesheet" href="mc2/styles/code.css">
+
+    
+      <link rel="stylesheet" href="styles/react.css">
+    
+
+    
+  </head>
+
+  <body>
+    <div id="pos"></div>
+    <div class="reveal">
+      <div class="slides">
+        <section class="slide chaptertitle">
+          <div class="slidecontent">
+            <div class="chapternumber"> chapter 14 of 14 </div>
+            <h1>Appendix - Graveyard</h1>
+
+            
+              <span>Where old syntax goes to die</span>
+            
+          </div>
+        </section>
+
+        
+          <section class="slide" data-pos="14-0-1">
+<span class="pos">14-0-1</span>
+<div class="slidecontent"><p>In this appendix chapter you&#39;ll find some React syntaxes that have been <strong>deprecated</strong>, for one reason or another.</p>
+</div></section>
+        
+
+        
+          <section class="slide sectionlist">
+            <div class="slidecontent">
+              <h3>Sections in this chapter</h3>
+              <ol>
+                
+                  <li><a href="#/3">createClass&nbsp;syntax</a></li>
+                
+                  <li><a href="#/4">Declaring&nbsp;props</a></li>
+                
+                  <li><a href="#/5">Lifecycle&nbsp;methods</a></li>
+                
+                  <li><a href="#/6">React&nbsp;Router&nbsp;v2</a></li>
+                
+                  <li><a href="#/7">Mixins</a></li>
+                
+              </ol>
+            </div>
+          </section>
+        
+
+        
+          <section>
+            <section class="slide sectiontitle">
+              <div class="slidecontent">
+                <div class='sectioncount'>Section 1/5</div>
+                <h3>createClass syntax</h3>
+
+                
+                  <p>Pass-down garments</p>
+                
+              </div>
+            </section>
+            
+              <section class="slide" data-pos="14-1-1">
+<span class="pos">14-1-1</span>
+<div class="slidecontent"><p>Remember how we first showed you the <strong>plain function</strong> syntax for defining components...</p>
+<pre><code class="lang-javascript">let User = props =&gt; &lt;div&gt;Name: {props.name}&lt;/div&gt;;
+
+User.propTypes = {
+  name: React.PropTypes.string.isRequired
+};
+</code></pre>
+</div></section>
+            
+              <section class="slide" data-pos="14-1-2">
+<span class="pos">14-1-2</span>
+<div class="slidecontent"><p>...and then admitted that there are in fact <strong>two definition syntaxes</strong>?</p>
+<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Name: {this.props.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
+  }
+  <span class="hljs-keyword">static</span> get propTypes(){
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">name</span>: React.PropTypes.string.isRequired
+    }
+  }
+}
+</code></pre>
+</div></section>
+            
+              <section class="slide" data-pos="14-1-3">
+<span class="pos">14-1-3</span>
+<div class="slidecontent"><p>We lied again - there are <strong>three syntaxes</strong>. We can also use the <code>createClass</code> constructor:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> User = React.createClass({
+  <span class="hljs-attr">propTypes</span>: { <span class="hljs-attr">name</span>: React.PropTypes.string.isRequired },
+  render() {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Name: {this.props.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
+  }
+});
+</code></pre>
+<p>This <strong>was used for non-PFC:s before ES6 introduced classes</strong> and made the class syntax possible.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-1-4">
+<span class="pos">14-1-4</span>
+<div class="slidecontent"><p>It is <strong>pretty similar</strong> to real classes, with <strong>a few differences</strong>:</p>
+<ul>
+<li>There&#39;s no constructor, so we <strong>provide starting state from a <code>getInitialState</code> method</strong></li>
+<li>Methods are <strong>autobound to the instance</strong>. Convenient but can have performance impact</li>
+<li>Some <strong>inconsistencies with static stuff</strong></li>
+</ul>
+<p>See them in the <a href="resources/site/demos/createclass/index.html" target="_blank">createClass</a> demo</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-1-5">
+<span class="pos">14-1-5</span>
+<div class="slidecontent"><p>As alluded to earlier; this syntax was <strong>used before classes were available</strong>.</p>
+<p>For a long time <strong>both approaches existed side by side</strong>, but <code>React.createClass</code> <a href="https://github.com/facebook/react/pull/9232" class="link" target="_blank">was removed from React</a> and put into a separate module.</p>
+</div></section>
+            
+          </section>
+        
+          <section>
+            <section class="slide sectiontitle">
+              <div class="slidecontent">
+                <div class='sectioncount'>Section 2/5</div>
+                <h3>Declaring props</h3>
+
+                
+                  <p>Dear santa, I want...</p>
+                
+              </div>
+            </section>
+            
+              <section class="slide" data-pos="14-2-1">
+<span class="pos">14-2-1</span>
+<div class="slidecontent"><p>React provides components with a way to <strong>declare what props they expect</strong>. This serves two purposes:</p>
+<ul>
+<li>To <strong>safeguard</strong> against faulty use (in dev mode) by <strong>throwing an error</strong> (or give a warning depending on settings) if something is missing or of the wrong type</li>
+<li>To <strong>document</strong> how the component is supposed to be used</li>
+</ul>
+</div></section>
+            
+              <section class="slide" data-pos="14-2-2">
+<span class="pos">14-2-2</span>
+<div class="slidecontent"><p>This declaration, called <strong><code>propTypes</code></strong>, is an <strong>object</strong> with constants describing the needed props:</p>
+<pre><code class="lang-javascript">{
+  <span class="hljs-attr">name</span>: React.PropTypes.string.isRequired,
+  <span class="hljs-attr">role</span>: React.PropTypes.oneOf([<span class="hljs-string">'admin'</span>,<span class="hljs-string">'contributor'</span>,<span class="hljs-string">'user'</span>])
+}
+</code></pre>
+<p>See the <strong>full documentation</strong> of this powerful API here: <a href="https://facebook.github.io/react/docs/reusable-components.html#prop-validation" class="link" target="_blank">Proptypes</a></p>
+</div></section>
+            
+              <section class="slide list" data-pos="14-2-3">
+<span class="pos">14-2-3</span>
+<div class="slidecontent">
+<p>These declarations are then added as a <strong>static property</strong> to the class. There are <strong>three different syntaxes</strong> for doing that:</p>
+<ul>
+<li><span>a</span>as a prop on the class itself</li>
+<li><span>b</span>as a static getter</li>
+<li><span>c</span>as a static prop (experimental syntax)</li>
+</ul>
+</div></section>
+            
+              <section class="slide num numA" data-pos="14-2-4">
+<span class="pos">14-2-4</span>
+<div class="slidecontent">
+<p>We can <strong>add the declaration directly onto the class</strong>:</p>
+<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Name: {this.props.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
+  }
+}
+User.propTypes = {
+  <span class="hljs-attr">name</span>: React.PropTypes.string.isRequired
+}
+</code></pre>
+<p>This <strong>also works for PFC:s</strong> (pure function components).</p>
+</div></section>
+            
+              <section class="slide num numB" data-pos="14-2-5">
+<span class="pos">14-2-5</span>
+<div class="slidecontent">
+<p>Alternatively we can return it from a <strong>class method</strong> if we use <strong><code>static</code> and <code>get</code></strong>:</p>
+<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Name: {this.props.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
+  }
+  <span class="hljs-keyword">static</span> get propTypes(){
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">name</span>: React.PropTypes.string.isRequired
+    }
+  }
+}
+</code></pre>
+</div></section>
+            
+              <section class="slide num numC" data-pos="14-2-6">
+<span class="pos">14-2-6</span>
+<div class="slidecontent">
+<p>There is also a <a href="https://github.com/tc39/proposal-class-public-fields" class="link" target="_blank">proposal</a> to allow declaring <strong>static props</strong>:</p>
+<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Name: {this.props.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
+  }
+  <span class="hljs-keyword">static</span> propTypes = {
+    <span class="hljs-attr">name</span>: React.PropTypes.string.isRequired
+  }
+}
+</code></pre>
+<p>To use this we need a <a href="https://www.npmjs.com/package/babel-plugin-transform-class-properties" class="link" target="_blank">babel plugin</a> (or Typescript).</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-2-7">
+<span class="pos">14-2-7</span>
+<div class="slidecontent"><p>We can also provide a <strong><code>defaultProps</code></strong> object where the <strong>keys are prop names</strong> and the <strong>values are defaults</strong>:</p>
+<pre><code class="lang-javascript">{
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'Anonymous'</span>,
+  <span class="hljs-attr">age</span>: <span class="hljs-string">'Unknown'</span>
+}
+</code></pre>
+<p>The <code>defaultProps</code> is <strong>attached as a static prop</strong> exactly like <code>propTypes</code>.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-2-8">
+<span class="pos">14-2-8</span>
+<div class="slidecontent"><p><strong>Try this all out</strong> in the <a href="resources/site/demos/proptypes/index.html" target="_blank">Proptypes</a> demo.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-2-9">
+<span class="pos">14-2-9</span>
+<div class="slidecontent"><p>A final word; the <code>PropTypes</code> API is somewhat <strong>falling out of grace</strong>. It used to live inside <code>react</code>, but since v15.5 you have to get it from a <strong>separate module</strong>:</p>
+<pre><code><span class="hljs-keyword">import</span> PropTypes <span class="hljs-keyword">from</span> <span class="hljs-string">'prop-types'</span>;
+</code></pre></div></section>
+            
+              <section class="slide" data-pos="14-2-10">
+<span class="pos">14-2-10</span>
+<div class="slidecontent"><p>The reason is simple; <strong>static analyzers with typechecking</strong> have grown in popularity, and if we&#39;re using such a solution, it makes more sense to <strong>declare our props using that</strong>.</p>
+<p>Most common of these are <a href="https://flow.org/">Flow</a> and <a href="https://www.typescriptlang.org/">TypeScript</a>.</p>
+</div></section>
+            
+          </section>
+        
+          <section>
+            <section class="slide sectiontitle">
+              <div class="slidecontent">
+                <div class='sectioncount'>Section 3/5</div>
+                <h3>Lifecycle methods</h3>
+
+                
+              </div>
+            </section>
+            
+              <section class="slide" data-pos="14-3-1">
+<span class="pos">14-3-1</span>
+<div class="slidecontent"><p><img src="resources/14-3-1-0.svg" alt="dot"></p>
+<ul>
+<li><code>componentWillMount()</code> is being deprecated and will be removed in 17.0</li>
+<li><code>componentWillMount()</code> renamed to <code>UNSAFE_componentWillMount()</code></li>
+</ul>
+</div></section>
+            
+              <section class="slide" data-pos="14-3-2">
+<span class="pos">14-3-2</span>
+<div class="slidecontent"><p><img src="resources/14-3-2-0.svg" alt="dot"></p>
+<ul>
+<li><code>componentWillReceiveProps()</code> is being deprecated and will be removed in 17.0</li>
+<li><code>componentWillUpdate()</code> is being deprecated and will be removed in 17.0</li>
+<li>Both are renamed with <code>UNSAFE_</code> prefix</li>
+</ul>
+</div></section>
+            
+          </section>
+        
+          <section>
+            <section class="slide sectiontitle">
+              <div class="slidecontent">
+                <div class='sectioncount'>Section 4/5</div>
+                <h3>React Router v2</h3>
+
+                
+                  <p>completing the trinity</p>
+                
+              </div>
+            </section>
+            
+              <section class="slide" data-pos="14-4-1">
+<span class="pos">14-4-1</span>
+<div class="slidecontent"><p>So we introduced <strong>Redux</strong> to deal with the <strong>data</strong> in our <strong>React</strong> app. But, what about <strong>navigation</strong>?</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-2">
+<span class="pos">14-4-2</span>
+<div class="slidecontent"><h2 id="react-router-v2">React-Router-v2</h2>
+<p>Where are we going?</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-3">
+<span class="pos">14-4-3</span>
+<div class="slidecontent"><p><strong>SPA</strong> stands for <strong>S</strong>ingle <strong>P</strong>age <strong>A</strong>pplication. This describes the fact that the page <strong>never reloads</strong> in the traditional sense.</p>
+<p>We&#39;re dealing with <strong>one single front-end webapp</strong> throughout the session lifetime.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-4">
+<span class="pos">14-4-4</span>
+<div class="slidecontent"><p>But unless we&#39;re building something very simple, we still <strong>need to provide navigation</strong>.</p>
+<p>In a SPA we have <strong>two options</strong> for doing so.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-5">
+<span class="pos">14-4-5</span>
+<div class="slidecontent"><p><strong>Option 1</strong> is to <strong>handle our own navigation</strong>. Whenever the user clicks something to go to a different view, we catch that event and <strong>repopulate the screen</strong> with whatever the user asked for.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-6">
+<span class="pos">14-4-6</span>
+<div class="slidecontent"><p>The advantage of this approach is that it is <strong>easy</strong>. We&#39;re in <strong>total control</strong>, and navigation added <strong>no external dependencies</strong>.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-7">
+<span class="pos">14-4-7</span>
+<div class="slidecontent"><p>There&#39;s a <strong>huge downside</strong>, however: <strong>browser navigation won&#39;t work</strong> in our app, meaning:</p>
+<ul>
+<li>The user <strong>cannot bookmark</strong> a position in the app</li>
+<li>Hitting the <strong>back button means leaving the app</strong> altogether</li>
+</ul>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-8">
+<span class="pos">14-4-8</span>
+<div class="slidecontent"><p>For a serious webapp, these are <strong>dealbreakers</strong>.</p>
+<p>Which is why <strong>all frameworks</strong> go with <strong>option 2</strong>, namely to <strong>hook into the browser navigation</strong>. Angular, Ember, Meteor, Aurora - they all have their own <strong>built-in routing</strong> solution.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-9">
+<span class="pos">14-4-9</span>
+<div class="slidecontent"><p>But <strong>React is not a full framework</strong>. It deals mostly with the view, and doesn&#39;t care how you solve the navigation problem.</p>
+<p>If you want to hook into the browser navigation, you have to <strong>do it yourself</strong>.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-10">
+<span class="pos">14-4-10</span>
+<div class="slidecontent"><p>...or, you can include a <strong>companion library</strong> where someone else has already solved the problem! Which is exactly what <a href="https://github.com/reactjs/react-router" class="link" target="_blank">React Router</a> is.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-11">
+<span class="pos">14-4-11</span>
+<div class="slidecontent"><p>Note that we&#39;ll be talking about <strong>version 2</strong> of React Router, which is still the most common in the wild. However, there is a <strong>version 4 released</strong> which is <strong>very different</strong>! </p>
+<p>Version 3? Never really happened. :)</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-12">
+<span class="pos">14-4-12</span>
+<div class="slidecontent"><h2 id="exploring-an-example">Exploring an example</h2>
+<p>Routing in the real world</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-13">
+<span class="pos">14-4-13</span>
+<div class="slidecontent"><p>Before we peek under the hood, we&#39;ll explore a simple example app that uses React Router.</p>
+<p>Here&#39;s what the <strong>home screen</strong> looks like:</p>
+<p><img src="resources/images/router-demo-home.png" alt="home"></p>
+<p>Note how the <strong>home</strong> link in the navbar is active.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-14">
+<span class="pos">14-4-14</span>
+<div class="slidecontent"><p>Clicking on <strong>products</strong> takes us to this list:</p>
+<p><img src="resources/images/router-demo-list.png" alt="home"></p>
+<p>Now the <strong>Products</strong> link in the nav menu is active.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-15">
+<span class="pos">14-4-15</span>
+<div class="slidecontent"><p>Finally here&#39;s the screen for a <strong>specific product</strong>:</p>
+<p><img src="resources/images/router-demo-product.png" alt="home"></p>
+<p>Note how the <strong>Products</strong> link is still active, since we&#39;re still considered to be in the same section.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-16">
+<span class="pos">14-4-16</span>
+<div class="slidecontent"><p>As stated a very simple app, yet still enough to catch the most common routing needs.</p>
+<p>We&#39;ll be walking through it together, but you can try the demo here: <a href="resources/site/demos/router/index.html" target="_blank">Router</a></p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-17">
+<span class="pos">14-4-17</span>
+<div class="slidecontent"><h2 id="the-route-map">The route map</h2>
+<p>Where to go</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-18">
+<span class="pos">14-4-18</span>
+<div class="slidecontent"><p>At the heart of an app using React Router is the <strong>routes definition</strong>. Inspired by Ember, it is a <strong>nested declaration of all routes</strong> in your app.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-19">
+<span class="pos">14-4-19</span>
+<div class="slidecontent"><p>Here&#39;s a <strong>conceptual sitemap</strong> of our example:</p>
+<pre><code class="lang-yaml"><span class="hljs-string">routes</span>
+  <span class="hljs-string">home</span>
+  <span class="hljs-string">products</span>
+    <span class="hljs-string">list</span>
+    <span class="hljs-string">productitem</span>
+</code></pre>
+<p><strong>Home</strong> is just a single page. <strong>Products</strong> is a section with two pages; a <strong>list</strong> and a <strong>product item</strong>.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-20">
+<span class="pos">14-4-20</span>
+<div class="slidecontent"><p>Thinking about it, this is a <strong>nested structure</strong> much like the DOM. We&#39;ve already seen how convenient it is to describe the DOM with the <strong>JSX syntax</strong>, so why not use that for the routes too?</p>
+<p>That&#39;s exactly the approach React Router takes.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-21">
+<span class="pos">14-4-21</span>
+<div class="slidecontent"><p>Here&#39;s the <strong>routes definition</strong> for our <strong>example app</strong>:</p>
+<pre><code>const routes = (
+  <span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">component</span>=<span class="hljs-string">{Wrapper}</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">IndexRoute</span> <span class="hljs-attr">component</span>=<span class="hljs-string">{Home}</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/products"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">IndexRoute</span> <span class="hljs-attr">component</span>=<span class="hljs-string">{ProductList}</span> /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/products/:productid"</span> <span class="hljs-attr">component</span>=<span class="hljs-string">{Product}</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">Route</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">Route</span>&gt;</span>
+);
+</code></pre></div></section>
+            
+              <section class="slide" data-pos="14-4-22">
+<span class="pos">14-4-22</span>
+<div class="slidecontent"><p>Even without fully understanding every detail, we can see that the routes definition serves <strong>three powerful purposes</strong> at the same time:</p>
+<ul>
+<li><strong>Connecting paths to components</strong></li>
+<li><strong>Providing a templating solution</strong></li>
+<li><strong>Showing an overview of your entire app</strong></li>
+</ul>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-23">
+<span class="pos">14-4-23</span>
+<div class="slidecontent"><p>The rest of the details will hopefully clear when we take a closer look at <strong>the Wrapper</strong>, <strong>index routes</strong>, <strong>links</strong> and <strong>parameters</strong> respectively.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-24">
+<span class="pos">14-4-24</span>
+<div class="slidecontent"><h2 id="the-wrapper-component">The Wrapper component</h2>
+<p>Router templating</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-25">
+<span class="pos">14-4-25</span>
+<div class="slidecontent"><p>Now we&#39;ll take a closer look at the <strong>Wrapper</strong> component, which functions as a <strong>master template</strong> in our app:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> routes = (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">component</span>=<span class="hljs-string">{Wrapper}</span>&gt;</span>
+    // ...lots of sub routes...
+  <span class="hljs-tag">&lt;/<span class="hljs-name">Route</span>&gt;</span></span>
+);
+</code></pre>
+<p>This definition means that <code>Wrapper</code> will be rendered for the path <code>/</code> and <strong>all child paths</strong> too. If a child path is matched, then the component tied to that route will be <strong>passed as a child to Wrapper</strong>.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-26">
+<span class="pos">14-4-26</span>
+<div class="slidecontent"><p>Here&#39;s the code for <strong>Wrapper</strong>:</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// Abbreviations: ILink is IndexLink and acn is activeClassName</span>
+<span class="hljs-keyword">let</span> Wrapper = <span class="hljs-function"><span class="hljs-params">props</span> =&gt;</span> (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>A Router demo<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"nav"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">ILink</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">acn</span>=<span class="hljs-string">"now"</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-name">ILink</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">Link</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/products"</span> <span class="hljs-attr">acn</span>=<span class="hljs-string">"now"</span>&gt;</span>Products<span class="hljs-tag">&lt;/<span class="hljs-name">Link</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">hr</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"content"</span>&gt;</span>{props.children}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
+);
+</code></pre>
+<p>Note how we <strong>render matched child routes</strong> into <code>content</code>.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-27">
+<span class="pos">14-4-27</span>
+<div class="slidecontent"><p>In the example app we only have one wrapper, but if we wanted to we could <strong>nest wrappers</strong>.</p>
+<p>Let&#39;s for example say that we want all pages in the <strong>products</strong> section to have a distinct look.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-28">
+<span class="pos">14-4-28</span>
+<div class="slidecontent"><p>That&#39;s as easy as adding a component, let&#39;s call it <code>ProductSection</code>, to the <code>/products</code> route:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> routes = (
+  &lt;Route path="/" component={Wrapper}&gt;
+    &lt;IndexRoute component={Home} /&gt;
+    &lt;Route path="/products" component={ProductSection}&gt;
+      &lt;IndexRoute component={ProductList} /&gt;
+      &lt;Route path="/products/:productid" component={Product} /&gt;
+    &lt;/Route&gt;
+  &lt;/Route&gt;
+);
+</code></pre>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-29">
+<span class="pos">14-4-29</span>
+<div class="slidecontent"><p>And <code>ProductSection</code> wouldn&#39;t need to be more complicated than this:</p>
+<pre><code><span class="hljs-keyword">let</span> ProductSection = <span class="hljs-function"><span class="hljs-params">props</span> =&gt;</span> (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"productsection"</span>&gt;</span>
+    {props.children}
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+);
+</code></pre></div></section>
+            
+              <section class="slide" data-pos="14-4-30">
+<span class="pos">14-4-30</span>
+<div class="slidecontent"><p>In other words, <strong>wrapping routes</strong> and <strong>wrapping components</strong> are just <strong>two sides of the same coin</strong>!</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-31">
+<span class="pos">14-4-31</span>
+<div class="slidecontent"><h2 id="index-routes">Index routes</h2>
+<p>You say potato</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-32">
+<span class="pos">14-4-32</span>
+<div class="slidecontent"><p>Let&#39;s wrap our brains around the difference between a <code>Route</code> and an <code>IndexRoute</code>.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-33">
+<span class="pos">14-4-33</span>
+<div class="slidecontent"><p>Take a look at our routes again:</p>
+<pre><code><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">component</span>=<span class="hljs-string">{Wrapper}</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">IndexRoute</span> <span class="hljs-attr">component</span>=<span class="hljs-string">{Home}</span> /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/products"</span> <span class="hljs-attr">component</span>=<span class="hljs-string">{ProductSection}</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">IndexRoute</span> <span class="hljs-attr">component</span>=<span class="hljs-string">{ProductList}</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/products/:productid"</span> <span class="hljs-attr">component</span>=<span class="hljs-string">{Product}</span> /&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">Route</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">Route</span>&gt;</span>
+</code></pre><p>Can you guess what the functions of <code>IndexRoute</code>s are?</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-34">
+<span class="pos">14-4-34</span>
+<div class="slidecontent"><p>An <code>IndexRoute</code> is like a <strong>default route</strong> - it is rendered if no sibling route is matched. This means that an <code>IndexRoute</code>...</p>
+<ul>
+<li><strong>must be the child of a <code>Route</code> with a <code>path</code></strong></li>
+<li><strong>cannot have a <code>path</code> of its own</strong></li>
+<li><strong>can never have another <code>IndexRoute</code> as a sibling</strong></li>
+</ul>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-35">
+<span class="pos">14-4-35</span>
+<div class="slidecontent"><h2 id="links">Links</h2>
+<p>Getting a highway pass</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-36">
+<span class="pos">14-4-36</span>
+<div class="slidecontent"><p>We&#39;ll now take a look at how to implement <strong>links</strong> in an app using React Router.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-37">
+<span class="pos">14-4-37</span>
+<div class="slidecontent"><p>As you perhaps noticed in the <code>Wrapper</code> source, we can use the <strong><code>Link</code> component</strong> from React Router:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> Link = ReactRouter.Link;
+
+<span class="hljs-keyword">let</span> l = <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Link</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/about"</span>&gt;</span>About<span class="hljs-tag">&lt;/<span class="hljs-name">Link</span>&gt;</span></span>;
+</code></pre>
+<p>When clicked, the link <code>l</code> will navigate to the route <code>/about</code>.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-38">
+<span class="pos">14-4-38</span>
+<div class="slidecontent"><p>Remember how the navbar links in our example app were <strong>highlighted if the route they linked to was currently active</strong>?</p>
+<p><img src="resources/images/router-demo-home.png" alt="home"></p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-39">
+<span class="pos">14-4-39</span>
+<div class="slidecontent"><p>We accomplish that through the <code>activeClassName</code> property:</p>
+<pre><code class="lang-javascript">&lt;Link to=<span class="hljs-string">"/about"</span> activeClassName=<span class="hljs-string">"active"</span>&gt;About&lt;<span class="hljs-regexp">/Link&gt;</span>
+</code></pre>
+<p>This link will be rendered with the CSS class <strong>active</strong> if our current route matches <code>/about</code>.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-40">
+<span class="pos">14-4-40</span>
+<div class="slidecontent"><p>However, this clashes when we link to an <code>IndexRoute</code> since <strong>that route will always match</strong>.</p>
+<p>That&#39;s why we use an <code>IndexLink</code> when linking to such a route, to only have it active if we are literally at that route and no other.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-41">
+<span class="pos">14-4-41</span>
+<div class="slidecontent"><p>Here are the navbar links from the example app demonstrating this:</p>
+<pre><code class="lang-javascript">&lt;IndexLink to="/" activeClassName="active"&gt;Home&lt;/IndexLink&gt;
+&lt;Link to="/products" activeClassName="active"&gt;Products&lt;/Link&gt;
+</code></pre>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-42">
+<span class="pos">14-4-42</span>
+<div class="slidecontent"><h2 id="parameters">Parameters</h2>
+<p>There&#39;s no party without them!</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-43">
+<span class="pos">14-4-43</span>
+<div class="slidecontent"><p>You saw them flash by in our example app for the <strong>product item page</strong>. Here&#39;s that route definition again:</p>
+<pre><code><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/products/:productid"</span> <span class="hljs-attr">component</span>=<span class="hljs-string">{Product}</span> /&gt;</span>
+</code></pre><p>The <strong>colon</strong> makes the last part of the <code>path</code> into a <strong>parameter</strong>.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-44">
+<span class="pos">14-4-44</span>
+<div class="slidecontent"><p>Which means that if we...</p>
+<ul>
+<li><strong>navigate</strong> to <strong><code>/products/dishwasher</code></strong></li>
+<li>then the route <strong><code>/products/:productid</code></strong> will <strong>match</strong></li>
+<li>and the parameter <strong><code>productid</code></strong> will equal <strong><code>dishwasher</code></strong>.</li>
+</ul>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-45">
+<span class="pos">14-4-45</span>
+<div class="slidecontent"><p>Observe that the <strong>colon</strong> is only used in the <strong>routes definition</strong>.</p>
+<p>We do <strong>not</strong> use it <strong>in our URL:s</strong> when we navigate or link.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-46">
+<span class="pos">14-4-46</span>
+<div class="slidecontent"><p>We can see this in action in the <strong>source code for the <code>Product</code> component</strong>:</p>
+<pre><code><span class="hljs-keyword">let</span> Product = <span class="hljs-function"><span class="hljs-params">props</span> =&gt;</span> (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Interested in buying a {props.params.productid}?<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+);
+</code></pre><p>Note how the <strong>parameters are available</strong> on <code>props.params</code>. This is React Router&#39;s doing.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-47">
+<span class="pos">14-4-47</span>
+<div class="slidecontent"><h2 id="route-configuration">Route configuration</h2>
+<p>Drawing the map</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-48">
+<span class="pos">14-4-48</span>
+<div class="slidecontent"><p>Now the time has come to zoom out and see how to <strong>configure</strong> and <strong>initialize</strong> all this!</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-49">
+<span class="pos">14-4-49</span>
+<div class="slidecontent"><p>Here&#39;s the relevant code from the example app:</p>
+<pre><code><span class="hljs-keyword">let</span> <span class="hljs-attr">Router</span> = ReactRouter.Router,
+  <span class="hljs-attr">hashHistory</span> = ReactRouter.hashHistory;
+
+ReactDOM.render(
+  &lt;Router <span class="hljs-attr">routes={routes}</span> <span class="hljs-attr">history={hashHistory}</span> /&gt;,
+  document.getElementById(<span class="hljs-string">"container"</span>)
+);
+</code></pre><p>As you can see we use a <code>Router</code> component as a <strong>root component</strong>, feeding it our <strong>routes</strong> and a <strong>history</strong> engine.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-50">
+<span class="pos">14-4-50</span>
+<div class="slidecontent"><p><strong>Note the difference</strong> between <code>Router</code> and <code>Route</code>!</p>
+<ul>
+<li>A <code>Route</code> represents a <strong>single route</strong>, so we have many of those.</li>
+<li><code>Router</code> is the <strong>root component</strong>, which receives all <code>Route</code>s as children.</li>
+</ul>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-51">
+<span class="pos">14-4-51</span>
+<div class="slidecontent"><p>Finally, what about the <strong>history</strong> parameter? That dictates <strong>how</strong> React Router should <strong>hook up paths to the browser</strong>. </p>
+<p>There are 3 different implementations built in;</p>
+<ul>
+<li><strong><code>hashHistory</code></strong></li>
+<li><strong><code>browserHistory</code></strong></li>
+<li><strong><code>createMemoryHistory</code></strong></li>
+</ul>
+<p>We&#39;ll now take a quick look at each of them.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-52">
+<span class="pos">14-4-52</span>
+<div class="slidecontent"><p>In the example app we used <strong><code>hashHistory</code></strong>. This means that the app <strong>path lives in the hash of the URL</strong>:</p>
+<p><img src="resources/images/router-hash-url.png" alt="hash"></p>
+<p>The meaningless stuff at the end, <code>?_k=hl9mxa</code>, is an unfortunate artifact necessary to reliably track unique state.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-53">
+<span class="pos">14-4-53</span>
+<div class="slidecontent"><p>If we instead used <strong>browserHistory</strong> then we&#39;d get a clean, &quot;regular&quot; URL with no hashes or artifacts.</p>
+<p>But this <strong>requires server-side configuration</strong> to handle the case when the user starts somewhere else other than the root, which is why the example app doesn&#39;t use it.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-54">
+<span class="pos">14-4-54</span>
+<div class="slidecontent"><p>Finally <strong><code>createMemoryHistory</code></strong> doesn&#39;t connect to the browser at all, but instead <strong>handles the navigation state in memory</strong>. Much like <strong>Option 1</strong> for SPA:s that we mentioned initially as an example of what not to do.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-55">
+<span class="pos">14-4-55</span>
+<div class="slidecontent"><p>So why would we want to use memoryHistory? Three main reasons:</p>
+<ul>
+<li>For <strong>small apps that are living inside a larger app</strong>, for example a JSBin demo</li>
+<li>For rendering our apps <strong>server side</strong> where there is no browser</li>
+<li>For <strong>testing</strong></li>
+</ul>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-56">
+<span class="pos">14-4-56</span>
+<div class="slidecontent"><p>You can read more about the histories, and especially how to configure your server for browser histories, here:
+<a href="https://github.com/reactjs/react-router/blob/master/docs/guides/Histories.md" class="link" target="_blank">Histories</a></p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-57">
+<span class="pos">14-4-57</span>
+<div class="slidecontent"><h2 id="acting-on-route-change">Acting on route change</h2>
+<p>Employing a bouncer</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-58">
+<span class="pos">14-4-58</span>
+<div class="slidecontent"><p>As a final piece to the puzzle, React Router <strong>exposes hooks to act on transitions</strong>. There are three different events:</p>
+<ul>
+<li><strong><code>onEnter</code></strong>: Hmm, you&#39;re not on the guest list!</li>
+<li><strong><code>onLeave</code></strong>: Are you SURE you want to leave?</li>
+<li><strong><code>onChange</code></strong>: fired also for query or child route changes</li>
+</ul>
+</div></section>
+            
+              <section class="slide" data-pos="14-4-59">
+<span class="pos">14-4-59</span>
+<div class="slidecontent"><p>The events are placed as <strong>event listeners on the <code>Route</code> elements</strong> in the config, making us feel right at home!</p>
+<pre><code><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/dashboard"</span> <span class="hljs-attr">onEnter</span>=<span class="hljs-string">{checkAuth}/</span>&gt;</span>
+</code></pre></div></section>
+            
+              <section class="slide" data-pos="14-4-60">
+<span class="pos">14-4-60</span>
+<div class="slidecontent"><p>In the function supplied to the hook you can</p>
+<ul>
+<li>do <strong>async</strong> stuff</li>
+<li><strong>inspect</strong> current / upcoming route data</li>
+<li><strong>redirect</strong></li>
+</ul>
+<p>As an example, check out the <a href="resources/site/demos/routerhook/index.html" target="_blank">RouterHook</a> demo where we&#39;ve added a VIP gatekeeper to our product section!</p>
+</div></section>
+            
+          </section>
+        
+          <section>
+            <section class="slide sectiontitle">
+              <div class="slidecontent">
+                <div class='sectioncount'>Section 5/5</div>
+                <h3>Mixins</h3>
+
+                
+                  <p>Mixing it up</p>
+                
+              </div>
+            </section>
+            
+              <section class="slide" data-pos="14-5-1">
+<span class="pos">14-5-1</span>
+<div class="slidecontent"><p><strong>Mixins</strong> are <strong>objects</strong> with <strong>pre-made functionality</strong> that we can <strong>mix into components</strong>.</p>
+<p>This API <strong>only works with the <code>React.createClass</code> syntax</strong>, and not with the newer class components!</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-5-2">
+<span class="pos">14-5-2</span>
+<div class="slidecontent"><p>We use mixins by supplying them to the <strong><code>mixins</code> property</strong> in the <strong>component definition</strong>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> Component = React.createClass({
+  <span class="hljs-attr">mixins</span>: [amixin, anothermixin, athirdmixin],
+  <span class="hljs-comment">// rest of component follows</span>
+});
+</code></pre>
+<p>Now <strong>all methods in the mixins</strong> will be <strong>available on instances of <code>Component</code></strong>.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-5-3">
+<span class="pos">14-5-3</span>
+<div class="slidecontent"><p>Let&#39;s make a <strong>ticker</strong> mixin which...</p>
+<ul>
+<li><strong>inits</strong> a <strong>state variable</strong> called <strong><code>tick</code></strong> to <strong>0</strong></li>
+<li><strong>increases</strong> that variable <strong>every second</strong></li>
+</ul>
+</div></section>
+            
+              <section class="slide" data-pos="14-5-4">
+<span class="pos">14-5-4</span>
+<div class="slidecontent"><p>Here&#39;s the <strong>code</strong> to accomplish this:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> ticker = {
+  getInitialState() { <span class="hljs-keyword">return</span> {<span class="hljs-attr">tick</span>:<span class="hljs-number">0</span>}; },
+  tick() {
+    <span class="hljs-keyword">this</span>.setState({<span class="hljs-attr">tick</span>:<span class="hljs-keyword">this</span>.state.tick + <span class="hljs-number">1</span>});
+  },
+  componentDidMount() {
+    <span class="hljs-keyword">this</span>._ticker = setInterval(<span class="hljs-keyword">this</span>.tick,<span class="hljs-number">1000</span>);
+  },
+  componentWillUnmount() {
+    clearInterval(<span class="hljs-keyword">this</span>._ticker);
+  }
+};
+</code></pre>
+</div></section>
+            
+              <section class="slide" data-pos="14-5-5">
+<span class="pos">14-5-5</span>
+<div class="slidecontent"><p>We can now easily make a <strong>Timer component</strong> by <strong>mixing in ticker</strong>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> Timer = React.createClass({
+  <span class="hljs-attr">mixins</span>: [ticker],
+  render() {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+      Seconds since start: {this.state.tick}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
+  }
+});
+</code></pre>
+<p><strong>Try this out</strong> in the <a href="resources/site/demos/mixin/index.html" target="_blank">Mixin</a> demo.</p>
+</div></section>
+            
+              <section class="slide question" data-pos="14-5-6">
+<span class="pos">14-5-6</span>
+<div class="slidecontent">
+<p>But, hang on - what is <strong>different</strong> from simply <strong>merging the objects ourselves</strong>?</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> Component = React.createClass(<span class="hljs-built_in">Object</span>.assign(
+  {}, amixin, anothermixin, athirdmixin, {
+  <span class="hljs-comment">// rest of component follows</span>
+});
+</code></pre>
+</div></section>
+            
+              <section class="slide answer" data-pos="14-5-7">
+<span class="pos">14-5-7</span>
+<div class="slidecontent">
+<p>The React <strong>mixin API</strong> takes care of <strong>merging lifecycle methods</strong>.</p>
+<p>Recall that <strong>ticker</strong> needed to use both <strong><code>getInitialState</code></strong> and <strong><code>componentDidMount</code></strong>, as well as <strong><code>componentWillUnmount</code></strong> for cleanup.</p>
+<p>If our component used any of those and we <strong>merged the objects ourselves</strong>, there would be a <strong>clash</strong>!</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-5-8">
+<span class="pos">14-5-8</span>
+<div class="slidecontent"><p>A <strong>powerful pattern</strong> that allows for <strong>customisable mixins</strong> is to use <strong>mixin factories</strong>.</p>
+<p>While a <strong>regular mixin</strong> is an <strong>object</strong>, a <strong>mixin factory</strong> is a <strong>function</strong> that takes <strong>option parameters</strong> and <strong>returns</strong> a corresponding <strong>mixin object</strong>.</p>
+<p><img src="resources/14-5-8-261.svg" alt="dot"></p>
+</div></section>
+            
+              <section class="slide" data-pos="14-5-9">
+<span class="pos">14-5-9</span>
+<div class="slidecontent"><p>As an example, here&#39;s a <strong>version of <code>ticker</code></strong> that let&#39;s us  <strong>specify the interval</strong>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> MakeTicker = <span class="hljs-function">(<span class="hljs-params">interval</span>)=&gt;</span> ({
+  getInitialState(){ <span class="hljs-keyword">return</span> {<span class="hljs-attr">tick</span>:<span class="hljs-number">0</span>}; },
+  tick() {
+    <span class="hljs-keyword">this</span>.setState({<span class="hljs-attr">tick</span>:<span class="hljs-keyword">this</span>.state.tick + <span class="hljs-number">1</span>});
+  },
+  componentDidMount() {
+    <span class="hljs-keyword">this</span>._ticker = setInterval(<span class="hljs-keyword">this</span>.tick,interval);
+  },
+  componentWillUnmount() {
+    clearInterval(<span class="hljs-keyword">this</span>._ticker);
+  }
+});
+</code></pre>
+</div></section>
+            
+              <section class="slide" data-pos="14-5-10">
+<span class="pos">14-5-10</span>
+<div class="slidecontent"><p>You can <strong>try</strong> the customisable ticker in the <a href="resources/site/demos/mixinfactory/index.html" target="_blank">Mixin Factory</a> demo.</p>
+<p>Also, remember the <a href="resources/site/demos/lifecycle/index.html" target="_blank">Lifecycle</a> demo? We remade that as a <strong>more advanced mixin factory demo</strong> called <a href="resources/site/demos/mixinfactory2/index.html" target="_blank">Mixin&nbsp;Factory&nbsp;2</a>.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-5-11">
+<span class="pos">14-5-11</span>
+<div class="slidecontent"><p>It is <strong>rarely useful</strong> to <strong>make your own mixins</strong>. The <strong>most common use case</strong> is to have <strong>library-supplied mixins</strong> that <strong>act as an API bridge</strong> for the component.</p>
+</div></section>
+            
+              <section class="slide" data-pos="14-5-12">
+<span class="pos">14-5-12</span>
+<div class="slidecontent"><p>Dan Abramov makes the same point in <a href="https://facebook.github.io/react/blog/2016/07/13/mixins-considered-harmful.html" class="link">this official React blog post</a> where he <strong>advised against mixin usage</strong>.</p>
+</div></section>
+            
+          </section>
+        
+
+        
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      var basehref = window.location.href.replace(/chapter\d.*?$/,'')
+
+      document.addEventListener("keydown", function(e) {
+        var code = e.which || e.keyCode;
+        if (code === 13) {
+          window.location.href = basehref+"index.html?from=13";
+        } else if (code >= 49 && code <= 5 + 48) {
+          window.location.hash = "#/" + (code-48+1+1);
+        }
+        if (14 < 14) {
+          if (code === 99 || e.key === 'c') { // the letter C for next Chapter
+            window.location.href = basehref+"chapter15.html"
+          }
+        }
+      });
+    </script>
+    <script src="mc2/scripts/head.js" type="text/javascript"></script>
+    <script src="mc2/scripts/reveal.js" type="text/javascript"></script>
+    <script src="mc2/scripts/jquery.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        showNotes: false,
+        transition: 'slide',
+        dependencies: [
+          { src: 'mc2/scripts/plugin/notes/notes.js', async: true }
+        ]
+      });
+
+      window.onload = function() {
+        var links = document.querySelectorAll("a.link");
+        for(var i = 0; i < links.length; i++){
+          var link = links[i];
+          link.innerHTML = link.innerHTML.replace(/ /g,'&nbsp;')
+        }
+        var posElem = document.getElementById('pos')
+        function updateReference() {
+          setTimeout(function() {
+            var currentpos = document.querySelector('section.present[data-pos]')
+            if (currentpos) {
+              posElem.innerHTML = currentpos.getAttribute('data-pos')
+            } else {
+              posElem.innerHTML = ''
+            }
+            if (document.querySelector('.present.chaptertitle')) {
+              document.body.classList.add('atchaptertitle');
+            } else {
+              document.body.classList.remove('atchaptertitle');
+            }
+          }, 10);
+        }
+
+        window.addEventListener("hashchange",updateReference);
+
+        updateReference();
+      };
+    </script>
+
+    
+  </body>
+</html>

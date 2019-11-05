@@ -1,0 +1,12 @@
+digraph {
+  rankdir = LR;
+  bgcolor = transparent;
+  creator [label="action creator"]
+  component -> creator -> middlewares -> reducer
+  reducer
+
+  creator -> helper [style=dashed]
+  helper -> creator [style=dashed]
+  helper [style=dashed]
+  {rank=same; helper, creator}
+}

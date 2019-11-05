@@ -1,0 +1,6 @@
+digraph {
+    rankdir = LR
+    bgcolor = transparent
+
+    constructor -> getDerivedStateFromProps -> render -> componentDidMount
+}

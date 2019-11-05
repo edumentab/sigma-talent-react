@@ -1,0 +1,30 @@
+digraph {
+    bgcolor = transparent
+    
+    Site
+    TopBar
+    Main
+    Footer
+    h2 [shape=box]
+    div [shape=box]
+
+    Site -> TopBar    
+    Site -> Main
+    Site -> Footer
+
+    TopBar -> h2
+    
+    Main -> LeftColumn
+    Main -> CenterColumn
+    Main -> RightColumn
+    
+    Footer -> div
+    
+    1 [label="..."]
+    2 [label="..."]
+    3 [label="..."]
+    
+    LeftColumn -> 1
+    CenterColumn -> 2
+    RightColumn -> 3
+}
